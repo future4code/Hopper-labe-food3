@@ -5,7 +5,7 @@ import Logo from "../img/logo.png"
 import axios from "axios";
 
 
-const LoginPage = styled.body`
+const LoginPage = styled.div`
 margin:0;
 padding:0;
 `
