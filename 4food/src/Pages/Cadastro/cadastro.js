@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import InputMask from 'react-input-mask';
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function Cadastro(){
@@ -17,6 +18,16 @@ function Cadastro(){
     
     const [paginaEndereco, setPaginaEndereco] = useState(false)
 
+    
+    
+        let navigate = useNavigate();
+        const goHome = () => {
+            navigate("/");
+          };
+        
+        
+      
+    
     const criarUsuario = () => {
         const body = {
             name: nome,
@@ -47,17 +58,21 @@ function Cadastro(){
             "state": estado,
             "complement": complemento,
         }
-        axios.post("https://us-central1-missao-newton.cloudfunctions.net/fourFoodA/address", body, {
+        axios.put("https://us-central1-missao-newton.cloudfunctions.net/fourFoodA/address", body, {
             headers: {
                 "Content-Type": "application/json",
                 "auth": `${token}`
             }
         })
         .then(response => {
+            localStorage.removeItem("token-fourFoodA");
+            localStorage.setItem("token",response.data.token);
+            goHome()
             console.log(response)
         })
         .catch(err => console.log(err))
     }
+
 
     const renderCadastro = () => {
         if(!paginaEndereco) {
