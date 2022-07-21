@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Logo from "../img/logo.png"
 import axios from "axios";
@@ -41,6 +41,13 @@ input{
 
 function Login(){
 
+    const [erro, setErro] = useState();
+    
+    let navigate = useNavigate();
+        const goHome = () => {
+            navigate("/menu");
+          };
+
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
@@ -62,8 +69,16 @@ function Login(){
         console.log(email,password)
         axios.post(url,body)
         .then((response)=>{
+            localStorage.setItem("token-fourFoodA",response.data.token);
+            goHome()
             console.log(response)
+        }).catch((error)=>{
+            setErro(error.response.data.message)
+            console.log(error)
+
         })
+
+        
     }
     return(
         <LoginPage>
@@ -77,6 +92,7 @@ function Login(){
 
          <input type="text" placeholder="email" value={email} onChange={onchangeEmail}></input>
          <input type="password" placeholder="senha" value={password} onChange={onchangePassword}></input>
+         <p>{erro}</p>
 
          <button onClick={onClickLogin}>Entrar</button>
 

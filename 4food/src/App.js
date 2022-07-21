@@ -30,7 +30,7 @@ function App() {
             <Route path={'/profile'} element={ <PerfilCliente/>}>
                
             </Route>
-            <Route path={'/restaurantes'} element={<Restaurantes/>}>
+            <Route exact path={'/restaurantes/:id'} element={<Restaurantes/>}>
                 
             </Route>
         </Routes>
