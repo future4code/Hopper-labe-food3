@@ -122,10 +122,7 @@ function Cadastro() {
               onChange={(e) => setSenha(e.target.value)}
             />
           </div>
-          {/* <button onClick={() => criarUsuario()}>Criar</button> */}
-          <button onClick={() => setPaginaEndereco(!paginaEndereco)}>
-            Criar
-          </button>
+          <button onClick={() => criarUsuario()}>Criar</button>
         </LoginArea>
       );
     } else {
@@ -186,10 +183,7 @@ function Cadastro() {
               onChange={(e) => setEstado(e.target.value)}
             />
           </div>
-          {/* <button onClick={() => criarEndereco()}>Salvar</button>  */}
-          <button onClick={() => setPaginaEndereco(!paginaEndereco)}>
-            Salvar
-          </button>
+          <button onClick={() => criarEndereco()}>Salvar</button>
         </LoginArea>
       );
     }
