@@ -86,18 +86,17 @@ function Login(){
                 <img src={Logo}></img>
             </Header>
 
-        <LoginArea>
+            <LoginArea>
+                <h2>Entrar</h2>
 
-            <h2>Entrar</h2>
+                <input type="text" placeholder="email" value={email} onChange={onchangeEmail}></input>
+                <input type="password" placeholder="senha" value={password} onChange={onchangePassword}></input>
+                <p>{erro}</p>
 
-         <input type="text" placeholder="email" value={email} onChange={onchangeEmail}></input>
-         <input type="password" placeholder="senha" value={password} onChange={onchangePassword}></input>
-         <p>{erro}</p>
+                <button onClick={onClickLogin}>Entrar</button>
 
-         <button onClick={onClickLogin}>Entrar</button>
-
-         <p>Não possui cadastro? <Link to = '/cadastro' >Clique aqui.</Link></p>
-         </LoginArea>
+                <p>Não possui cadastro? <Link to = '/cadastro' >Clique aqui.</Link></p>
+            </LoginArea>
         </LoginPage>
     )
 }
