@@ -6,6 +6,7 @@ import Cadastro from './Pages/Cadastro/cadastro';
 import Menus from './Pages/Menus/menu';
 import PerfilCliente from'./Pages/PerfilCliente/profile'
 import Restaurantes from './Pages/Restaurantes/restaurant'
+import Cart from './Pages/Cart/cart';
 
 
 
@@ -19,19 +20,28 @@ function App() {
       <Loading/>
       <BrowserRouter>
         <Routes>
-            <Route path={'/'} element={ <Login/>}>             
+            <Route 
+            path={'/'} element={ <Login/>}>             
             </Route>
-            <Route path={'/cadastro'} element={<Cadastro/>}>
-               
+            
+            <Route 
+            path={'/cadastro'} element={<Cadastro/>}>
             </Route>
-            <Route path={'/menu'} element={ <Menus/>}>
-               
+            
+            <Route 
+            path={'/menu'} element={ <Menus/>}>
             </Route>
-            <Route path={'/profile'} element={ <PerfilCliente/>}>
-               
+            
+            <Route 
+            path={'/profile'} element={ <PerfilCliente/>}>
             </Route>
-            <Route exact path={'/restaurantes/:id'} element={<Restaurantes/>}>
-                
+            
+            <Route
+            exact path={'/restaurantes/:id'} element={<Restaurantes/>}>
+            </Route>
+
+            <Route 
+            path={'/cart'} element={ <Cart/>}>
             </Route>
         </Routes>
         </BrowserRouter>
