@@ -54,5 +54,6 @@ export const LoginArea = styled.div`
     padding: 20px;
     font-weight: bolder;
     margin-top: 20px;
+    cursor:pointer;
   }
 `;

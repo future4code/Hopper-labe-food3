@@ -7,6 +7,15 @@ const Img = styled.img`
 width:200px;
 `
 
+const Container = styled.div`
+border:1px solid black;
+display:flex;
+
+
+
+
+`
+
 
 function Menu(){
 
@@ -29,20 +38,25 @@ function Menu(){
     }
 
     const listRestaurants = restaurantes.map((restaurante)=>{
-        return <Link to = {`/restaurantes/${restaurante.id}`} key={restaurante.id}>{restaurante.name}
-        <Img src={restaurante.logoUrl}></Img>
+        return <Container key={restaurante.id}>
+        <h2>{restaurante.name}</h2>
+        <Link to = {`/restaurantes/${restaurante.id}`} >
+        <Img src={restaurante.logoUrl}></Img> </Link>
+
         {restaurante.address}
         {restaurante.category}
         {restaurante.deliveryTime}
         {restaurante.description}
         {restaurante.shipping}
-        </Link>
+       
+        </Container>
     })
 
 
     return(
         <div>
          {listRestaurants}
+         
 
         </div>
     )

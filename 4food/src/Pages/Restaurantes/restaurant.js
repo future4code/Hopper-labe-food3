@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import styled from "styled-components";
 
 const Img = styled.img`
@@ -17,7 +17,14 @@ function Restaurante(){
 
     const token = localStorage.getItem("token-fourFoodA");
     const [detalhes, setDetalhes] = useState([]);
+    const [comprar,setComprar] = useState([])
     const {id} = useParams();
+
+    let navigate = useNavigate();
+    const goCart = () => {
+        navigate("/cart");
+      };
+  
 
     useEffect(()=>{
         mostrarDeatlhes()
@@ -32,19 +39,35 @@ function Restaurante(){
         })
     }
 
+    const comprarProduto = (detalhe) =>{
+        const copyProdutos = [...comprar,detalhe]
+        setComprar(copyProdutos)
+       console.log(detalhe) 
+    }
+    console.log(comprar)
+
     const ListDetalhes = detalhes.map((detalhe)=>{
         return <Div key={detalhe.id}>{detalhe.name}
         <Img src={detalhe.photoUrl}></Img>
-        {detalhe.price}
+        R${detalhe.price},00
         {detalhe.description}
         {detalhe.category}
+        <button onClick={() => comprarProduto(detalhe)}>comprar</button>
+
         </Div>
     })
 
     return(
         <div>
-         
+        <div>
+            <button onClick={goCart}>carrinho</button>
+        </div>
+
          {ListDetalhes}
+       
+        
+        
+
          
         </div>
     )
