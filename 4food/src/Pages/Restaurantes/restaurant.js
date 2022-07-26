@@ -17,7 +17,7 @@ function Restaurante(){
 
     const token = localStorage.getItem("token-fourFoodA");
     const [detalhes, setDetalhes] = useState([]);
-    const [comprar,setComprar] = useState([])
+    const [comprar,setComprar] = useState([]);
     const {id} = useParams();
 
     let navigate = useNavigate();
@@ -39,12 +39,40 @@ function Restaurante(){
         })
     }
 
-    const comprarProduto = (detalhe) =>{
-        const copyProdutos = [...comprar,detalhe]
-        setComprar(copyProdutos)
-       console.log(detalhe) 
-    }
+    const comprarProduto = (produto) =>{
+        const index = comprar.findIndex((adicionarNoCarrinho)=>{
+            if(adicionarNoCarrinho.id === produto.id){
+                return true;
+            }else{
+                return false;
+            }
+        });
+
+        if(index === -1){
+            const quantidadeProduto = {
+                ...produto,
+                quantidade: 1
+            };
+            const copyProdutos = [...comprar,quantidadeProduto]
+            setComprar(copyProdutos)
+            
+        }else{
+            const copyProdutos = comprar.map((adicionarNoCarrinho)=>{
+              if(adicionarNoCarrinho.id === produto.id){
+                return {
+                    ...adicionarNoCarrinho,
+                    quantidade: adicionarNoCarrinho.quantidade + 1
+                }
+              }else{
+                return adicionarNoCarrinho
+              }
+            })
+            setComprar(copyProdutos)
+        }
+            
+    };
     console.log(comprar)
+
 
     const ListDetalhes = detalhes.map((detalhe)=>{
         return <Div key={detalhe.id}>{detalhe.name}

@@ -7,6 +7,7 @@ import Menus from './Pages/Menus/menu';
 import PerfilCliente from'./Pages/PerfilCliente/profile'
 import Restaurantes from './Pages/Restaurantes/restaurant'
 import Cart from './Pages/Cart/cart';
+import { useState } from 'react';
 
 
 
@@ -14,7 +15,7 @@ import Cart from './Pages/Cart/cart';
 
 function App() {
 
-
+  const [comprar,setComprar] = useState([]);
   return (
     <div>
       <Loading/>
@@ -37,11 +38,11 @@ function App() {
             </Route>
             
             <Route
-            exact path={'/restaurantes/:id'} element={<Restaurantes/>}>
+            exact path={'/restaurantes/:id'} element={<Restaurantes comprar={comprar} setComprar={setComprar}/>}>
             </Route>
 
             <Route 
-            path={'/cart'} element={ <Cart/>}>
+            path={'/cart'} element={ <Cart comprar={comprar} setComprar={setComprar}/>}>
             </Route>
         </Routes>
         </BrowserRouter>
