@@ -6,7 +6,9 @@ import Restaurante from "../Restaurantes/restaurant";
 
 function Cart(){
     const navigate = useNavigate();
-    const [comprar,setComprar] = useState([]);
+    const [states, setters] = useState([]);
+    const {comprar} = states;
+    const {setComprar} = setters;
     
 
  
