@@ -1,7 +1,8 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useContext} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import styled from "styled-components";
+import GlobalContext from "../../global/GlobalContext";
 
 const Img = styled.img`
 width:250px;
@@ -16,8 +17,13 @@ flex-direction:column;
 function Restaurante(){
 
     const token = localStorage.getItem("token-fourFoodA");
-    const [detalhes, setDetalhes] = useState([]);
-    const [comprar,setComprar] = useState([])
+
+    const {states, setters} = useContext(GlobalContext);
+    const {detalhes} = states;
+    const {comprar} = states;
+    const {setDetalhes} = setters;
+    const {setComprar} = setters;
+
     const {id} = useParams();
 
     let navigate = useNavigate();

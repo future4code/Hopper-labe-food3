@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Logo from "../img/logo.png"
 import axios from "axios";
+import GlobalContext from "../../global/GlobalContext";
 
 
 const LoginPage = styled.div`
@@ -48,8 +49,11 @@ function Login(){
             navigate("/menu");
           };
 
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
+    const {states, setters} = useContext(GlobalContext);
+    const {email} = states;
+    const {setEmail} = setters;
+    const {password} = states;
+    const {setPassword} = setters;
 
     const onchangeEmail = (event) =>{
         setEmail(event.target.value)

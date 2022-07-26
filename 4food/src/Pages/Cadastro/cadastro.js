@@ -1,24 +1,39 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import InputMask from "react-input-mask";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Header, LoginArea } from "./styles";
 import Logo from "../img/logo.png";
+import GlobalContext from "../../global/GlobalContext";
 
 function Cadastro() {
-  const [nome, setNome] = useState("");
-  const [email, setEmail] = useState("");
-  const [cpf, setCpf] = useState("");
-  const [senha, setSenha] = useState("");
 
-  const [rua, setRua] = useState("");
-  const [numero, setNumero] = useState("");
-  const [complemento, setComplemento] = useState("");
-  const [bairro, setBairro] = useState("");
-  const [cidade, setCidade] = useState("");
-  const [estado, setEstado] = useState("");
+  const {states, setters} = useContext(GlobalContext);
+  const {nome} = states;
+  const {email} = states;
+  const {cpf} = states;
+  const {senha} = states;
+  const {setNome} = setters;
+  const {setEmail} = setters;
+  const {setCpf} = setters;
+  const {setSenha} = setters;
 
-  const [paginaEndereco, setPaginaEndereco] = useState(false);
+  const {rua} = states;
+  const {numero} = states;
+  const {complemento} = states;
+  const {bairro} = states;
+  const {cidade} = states;
+  const {estado} = states;
+  const {setRua} = setters;
+  const {setNumero} = setters;
+  const {setComplemento} = setters;
+  const {setBairro} = setters;
+  const {setCidade} = setters;
+  const {setEstado} = setters;
+
+  const {paginaEndereco} = states;
+  const {setPaginaEndereco} = setters;
+  
 
   let navigate = useNavigate();
   const goHome = () => {

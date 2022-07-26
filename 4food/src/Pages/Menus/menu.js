@@ -1,7 +1,8 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useContext } from "react";
 import {Link} from "react-router-dom"
 import styled from "styled-components";
+import GlobalContext from "../../global/GlobalContext";
 
 const Img = styled.img`
 width:200px;
@@ -20,7 +21,10 @@ display:flex;
 function Menu(){
 
     const token = localStorage.getItem("token-fourFoodA")
-    const[restaurantes, setRestaurantes] = useState([])
+
+    const {states, setters} = useContext(GlobalContext);
+    const {restaurantes} = states;
+    const {setRestaurantes} = setters;
 
     useEffect(()=>{
         mostrarMenus()
