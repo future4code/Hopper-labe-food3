@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import styled from "styled-components";
 import GlobalContext from "../../global/GlobalContext";
+import { useContext } from "react";
 
 const Img = styled.img`
 width:250px;
