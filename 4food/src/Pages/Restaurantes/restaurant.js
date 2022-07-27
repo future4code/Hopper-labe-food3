@@ -1,111 +1,107 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import {useNavigate, useParams} from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import GlobalContext from "../../global/GlobalContext";
 import { useContext } from "react";
 
 const Img = styled.img`
-width:250px;
-`
+  width: 250px;
+`;
 const Div = styled.div`
-display:flex;
-flex-wrap:wrap;
-flex-direction:column;
-`
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+`;
 
+function Restaurante() {
+  const token = localStorage.getItem("token-fourFoodA");
 
-function Restaurante(){
+  const { states, setters } = useContext(GlobalContext);
+  const { detalhes } = states;
+  const { carrinho } = states;
+  const { setDetalhes } = setters;
+  const { setCarrinho } = setters;
 
-    const token = localStorage.getItem("token-fourFoodA");
+  const { id } = useParams();
 
-    const {states, setters} = useContext(GlobalContext);
-    const {detalhes} = states;
-    const {comprar} = states;
-    const {setDetalhes} = setters;
-    const {setComprar} = setters;
+  let navigate = useNavigate();
+  const goCart = () => {
+    navigate("/cart");
+  };
 
-    const {id} = useParams();
+  useEffect(() => {
+    mostrarDeatlhes();
+  }, []);
 
-    let navigate = useNavigate();
-    const goCart = () => {
-        navigate("/cart");
+  const mostrarDeatlhes = () => {
+    axios
+      .get(
+        `https://us-central1-missao-newton.cloudfunctions.net/fourFoodA/restaurants/${id}`,
+        { headers: { auth: token, "Content-Type": "application/json" } }
+      )
+      .then((response) => {
+        setDetalhes(response.data.restaurant.products);
+        console.log(response.data.restaurant.products);
+      });
+  };
+
+  const comprarProduto = (produto) => {
+    const index = carrinho.findIndex((adicionarNoCarrinho) => {
+      if (adicionarNoCarrinho.id === produto.id) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+
+    console.log(index);
+
+    if (index === -1) {
+      const quantidadeProduto = {
+        ...produto,
+        quantidade: 1,
       };
-  
-
-    useEffect(()=>{
-        mostrarDeatlhes()
-
-    },[])
-
-    const mostrarDeatlhes = ()=>{
-        axios.get(`https://us-central1-missao-newton.cloudfunctions.net/fourFoodA/restaurants/${id}`, {headers:{auth:token,"Content-Type": "application/json"}})
-        .then((response)=>{
-            setDetalhes(response.data.restaurant.products)
-            console.log(response.data.restaurant.products)
-        })
+      const copyProdutos = [...carrinho, quantidadeProduto];
+      setCarrinho(copyProdutos);
+    } else {
+      const copyProdutos = carrinho.map((adicionarNoCarrinho) => {
+        if (adicionarNoCarrinho.id === produto.id) {
+          return {
+            ...adicionarNoCarrinho,
+            quantidade: adicionarNoCarrinho.quantidade + 1,
+          };
+        } else {
+          return adicionarNoCarrinho;
+        }
+      });
+      setCarrinho(copyProdutos);
     }
 
-    const comprarProduto = (produto) =>{
-        const index = comprar.findIndex((adicionarNoCarrinho)=>{
-            if(adicionarNoCarrinho.id === produto.id){
-                return true;
-            }else{
-                return false;
-            }
-        });
+    console.log(carrinho);
+  };
 
-        if(index === -1){
-            const quantidadeProduto = {
-                ...produto,
-                quantidade: 1
-            };
-            const copyProdutos = [...comprar,quantidadeProduto]
-            setComprar(copyProdutos)
-            
-        }else{
-            const copyProdutos = comprar.map((adicionarNoCarrinho)=>{
-              if(adicionarNoCarrinho.id === produto.id){
-                return {
-                    ...adicionarNoCarrinho,
-                    quantidade: adicionarNoCarrinho.quantidade + 1
-                }
-              }else{
-                return adicionarNoCarrinho
-              }
-            })
-            setComprar(copyProdutos)
-        }
-            
-    };
-    console.log(comprar)
-
-
-    const ListDetalhes = detalhes.map((detalhe)=>{
-        return <Div key={detalhe.id}>{detalhe.name}
+  const ListDetalhes = detalhes.map((detalhe) => {
+    return (
+      <Div key={detalhe.id}>
+        {detalhe.name}
         <Img src={detalhe.photoUrl}></Img>
         R${detalhe.price},00
         {detalhe.description}
         {detalhe.category}
         <button onClick={() => comprarProduto(detalhe)}>comprar</button>
+      </Div>
+    );
+  });
 
-        </Div>
-    })
-
-    return(
-        <div>
-        <div>
-            <button onClick={goCart}>carrinho</button>
-        </div>
-
-         {ListDetalhes}
-       
-        
-        
-
-         
-        </div>
-    )
+  return (
+    <div>
+      <div>
+        <button onClick={goCart}>carrinho</button>
+      </div>
+      {ListDetalhes}
+    </div>
+  );
 }
 
-export default Restaurante
+export default Restaurante;
