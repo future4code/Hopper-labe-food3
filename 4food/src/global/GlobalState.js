@@ -3,6 +3,8 @@ import GlobalContext from "./GlobalContext";
 
 const GlobalState = (props) => {
 
+    const [cart, setCart] = useState([])
+
     const [nome, setNome] = useState("");
     const [email, setEmail] = useState("");
     const [cpf, setCpf] = useState("");
@@ -40,6 +42,7 @@ const GlobalState = (props) => {
         restaurantes,
         detalhes,
         comprar,
+        cart
     }
 
     const setters = {
@@ -58,6 +61,7 @@ const GlobalState = (props) => {
         setRestaurantes,
         setDetalhes,
         setComprar,
+        setCart
     }
 
     return<GlobalContext.Provider value ={{states, setters}}>
