@@ -134,17 +134,34 @@ function Restaurante() {
     // });
 
     //console.log(index);
+    const quantidadeProduto = {
+      ...produto,
+      quantidade: contador,
+    };
 
-  console.log(produto)
-      const quantidadeProduto = {
-        ...produto,
-        quantidade: contador,
-      };
-      const produtos = carrinho.findIndex((produt) => {
-        return produt.id === quantidadeProduto.id
+    let temNoCarrinho = false
+    for (let item of carrinho) {
+      if(item.id === quantidadeProduto.id) {
+        temNoCarrinho = true
+      } 
+    }
+
+    if(temNoCarrinho) {
+      const updateCarrinho = carrinho.map((item) => {
+        if(item.id === quantidadeProduto.id) {
+          return {
+            ...item,
+            quantidade: quantidadeProduto.quantidade + item.quantidade
+          }
+        } else {
+          return item
+        }
       })
+      setCarrinho(updateCarrinho);
+    } else {
       const copyProdutos = [...carrinho, quantidadeProduto];
       setCarrinho(copyProdutos);
+    }
     
       // const copyProdutos = carrinho.map((adicionarNoCarrinho) => {
       //   if (adicionarNoCarrinho.id === produto.id) {
@@ -157,7 +174,7 @@ function Restaurante() {
       //   }
       // });
       // setCarrinho(copyProdutos);
-    localStorage.setItem('carrinho-fourFood', copyProdutos)
+
     setContador(1)
     setPopUp(false)
     console.log(carrinho);
