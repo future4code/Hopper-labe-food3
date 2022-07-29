@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import styled from "styled-components";
 import GlobalContext from "../../global/GlobalContext";
 import { useContext } from "react";
@@ -87,7 +87,7 @@ function Restaurante() {
 
   let navigate = useNavigate();
   const goCart = () => {
-    navigate("/cart");
+    // navigate(`/cart/${id}`);
   };
 
   useEffect(() => {
@@ -182,24 +182,24 @@ function Restaurante() {
 
   const ListDetalhes = detalhes.map((detalhe) => {
     return (
-      <div>
         <Div key={detalhe.id}>
-        {detalhe.name}
-        <Img src={detalhe.photoUrl}></Img>
-        R${detalhe.price},00
-        {detalhe.description}
-        {detalhe.category}
-        <button onClick={() => abrirPopPup(detalhe)}>comprar</button>
-        {/* <button onClick={() => comprarProduto(detalhe)}>comprar</button> */}
+          {detalhe.name}
+          <Img src={detalhe.photoUrl}></Img>
+          R${detalhe.price},00
+          {detalhe.description}
+          {detalhe.category}
+          <button onClick={() => abrirPopPup(detalhe)}>comprar</button>
+          {/* <button onClick={() => comprarProduto(detalhe)}>comprar</button> */}
         </Div>
-      </div> 
     );
   });
 
   return (
     <ContainerRestaurant>
       <div>
-        <button onClick={goCart}>carrinho</button>
+        <Link to={`/cart/${id}`}>
+          <button>carrinho</button>
+        </Link>
       </div>
       <div>
         {ListDetalhes}

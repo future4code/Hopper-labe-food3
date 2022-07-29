@@ -66,7 +66,6 @@ function Cadastro() {
 
   const criarEndereco = () => {
     const token = localStorage.getItem("token-fourFoodA");
-    console.log("token", token);
     const body = {
       street: rua,
       number: numero,
