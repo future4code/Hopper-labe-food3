@@ -8,14 +8,9 @@ import PerfilCliente from'./Pages/PerfilCliente/profile'
 import Restaurantes from './Pages/Restaurantes/restaurant'
 import Cart from './Pages/Cart/cart';
 import GlobalState from './global/GlobalState';
-
-
-
-
-
+import PrivateRoute from './PrivateRoute';
 
 function App() {
-
 
   return (
     <div>
@@ -23,29 +18,17 @@ function App() {
         <Loading/>
         <BrowserRouter>
           <Routes>
-              <Route 
-              path={'/'} element={ <Login/>}>             
-              </Route>
+              <Route exact path={'/'} element={ <Login/>} />
               
-              <Route 
-              path={'/cadastro'} element={<Cadastro/>}>
-              </Route>
+              <Route exact path={'/cadastro'} element={<Cadastro/>} />
               
-              <Route 
-              path={'/menu'} element={ <Menus/>}>
-              </Route>
-              
-              <Route 
-              path={'/profile'} element={ <PerfilCliente/>}>
-              </Route>
-              
-              <Route
-              exact path={'/restaurantes/:id'} element={<Restaurantes/>}>
-              </Route>
+              <Route exact path={'/menu'} element={<PrivateRoute Component={Menus}/>} />
 
-              <Route 
-              path={'/cart/:id'} element={ <Cart/>}>
-              </Route>
+              <Route exact path={'/profile'} element={<PrivateRoute Component={PerfilCliente}/>} />
+
+              <Route exact path={'/restaurantes/:id'} element={<PrivateRoute Component={Restaurantes}/>} />
+
+              <Route exact path={'/cart/:id'} element={<PrivateRoute Component={Cart}/>} />
           </Routes>
           </BrowserRouter>
       
