@@ -192,7 +192,6 @@ function Restaurante() {
         <button onClick={() => abrirPopPup(detalhe)}>comprar</button>
         {/* <button onClick={() => comprarProduto(detalhe)}>comprar</button> */}
         </Div>
-        {/*  */}
       </div> 
     );
   });

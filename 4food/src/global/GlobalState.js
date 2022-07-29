@@ -59,6 +59,7 @@ const GlobalState = (props) => {
 
   return (
     <GlobalContext.Provider value={{ states, setters }}>
+      {console.log(detalhes)}
       {props.children}
     </GlobalContext.Provider>
   );
