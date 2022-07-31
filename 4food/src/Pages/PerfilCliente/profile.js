@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Nav from "../../components/Nav";
+import { ProfileContainer } from "./styles";
 
 function Profile() {
   const token = localStorage.getItem("token-fourFoodA");
   const [perfil, setPerfil] = useState({});
   const [historicoPedidos, sethistoricoPedidos] = useState({});
- 
 
   useEffect(() => {
     mostrarPerfil();
@@ -19,25 +20,30 @@ function Profile() {
       )
       .then((response) => {
         setPerfil(response.data.user);
-        sethistoricoPedidos(response.data.orders.restaurantName)
+        // sethistoricoPedidos(response.data.orders.restaurantName);
       })
       .catch((err) => console.log(err));
 
-    
     axios
       .get(
         `https://us-central1-missao-newton.cloudfunctions.net/fourFoodA/orders/history`,
         { headers: { auth: token, "Content-Type": "application/json" } }
       )
       .then((response) => {
-        console.log(response);
+        console.log(response.data.orders);
+        sethistoricoPedidos(response.data.orders);
       })
       .catch((err) => console.log(err));
   };
 
- 
+  const mostrarPedido = (pedido) => {
+    if (pedido) {
+      return `Um pedido de ${pedido.restaurantName} está a caminho`;
+    }
+  };
+
   return (
-    <div>
+    <ProfileContainer>
       <header>
         <h1>Meu perfil</h1>
       </header>
@@ -48,13 +54,7 @@ function Profile() {
           <p>{perfil.cpf}</p>
         </div>
         <div>
-          <button
-            onClick={() => {
-              console.log();
-            }}
-          >
-            Editar
-          </button>
+          <button onClick={() => {}}>Editar</button>
         </div>
       </section>
       <section>
@@ -69,11 +69,12 @@ function Profile() {
       </section>
       <section>
         <h2>Histórico de pedidos</h2>
-        <p>{historicoPedidos.orders}</p>
-        
-        <p>Você não realizou nenhum pedido</p>
+        <p>{mostrarPedido(historicoPedidos[0])}</p>
+
+        <p>{historicoPedidos ? "" : "Você não realizou nenhum pedido"}</p>
       </section>
-    </div>
+      <Nav />
+    </ProfileContainer>
   );
 }
 

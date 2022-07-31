@@ -7,33 +7,31 @@ import Logo from "../img/logo.png";
 import GlobalContext from "../../global/GlobalContext";
 
 function Cadastro() {
+  const { states, setters } = useContext(GlobalContext);
+  const { nome } = states;
+  const { email } = states;
+  const { cpf } = states;
+  const { senha } = states;
+  const { setNome } = setters;
+  const { setEmail } = setters;
+  const { setCpf } = setters;
+  const { setSenha } = setters;
 
-  const {states, setters} = useContext(GlobalContext);
-  const {nome} = states;
-  const {email} = states;
-  const {cpf} = states;
-  const {senha} = states;
-  const {setNome} = setters;
-  const {setEmail} = setters;
-  const {setCpf} = setters;
-  const {setSenha} = setters;
+  const { rua } = states;
+  const { numero } = states;
+  const { complemento } = states;
+  const { bairro } = states;
+  const { cidade } = states;
+  const { estado } = states;
+  const { setRua } = setters;
+  const { setNumero } = setters;
+  const { setComplemento } = setters;
+  const { setBairro } = setters;
+  const { setCidade } = setters;
+  const { setEstado } = setters;
 
-  const {rua} = states;
-  const {numero} = states;
-  const {complemento} = states;
-  const {bairro} = states;
-  const {cidade} = states;
-  const {estado} = states;
-  const {setRua} = setters;
-  const {setNumero} = setters;
-  const {setComplemento} = setters;
-  const {setBairro} = setters;
-  const {setCidade} = setters;
-  const {setEstado} = setters;
-
-  const {paginaEndereco} = states;
-  const {setPaginaEndereco} = setters;
-  
+  const { paginaEndereco } = states;
+  const { setPaginaEndereco } = setters;
 
   let navigate = useNavigate();
   const goHome = () => {
@@ -89,7 +87,6 @@ function Cadastro() {
         localStorage.removeItem("token-fourFoodA");
         localStorage.setItem("token", response.data.token);
         goHome();
-        console.log(response);
       })
       .catch((err) => console.log(err));
   };
