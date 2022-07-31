@@ -28,17 +28,42 @@ img{
 `
 
 const LoginArea = styled.div`
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-padding:10px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    padding:10px;
 
-input{
-    margin:5px;
-}
+    input{
+        width: 100%;
+        padding: 15px;
+        border: 2px solid #b8b8b8;
+        border-radius: 5px;
+        ::placeholder {
+        color: #b8b8b8;
+        }
+    }   
+    label {
+        position: relative;
+        top: 7px;
+        left: 13px;
+        background-color: white;
+        padding: 5px;
+        color: #b8b8b8;
+    }
+    button {
+        width: 100%;
+        background-color: #e8222e;
+        border: 0;
+        border-radius: 5px;
+        padding: 20px;
+        font-weight: bolder;
+        margin-top: 20px;
+        cursor:pointer;
+  }
 
 `
+
 
 function Login(){
 
@@ -93,8 +118,17 @@ function Login(){
             <LoginArea>
                 <h2>Entrar</h2>
 
-                <input type="text" placeholder="email" value={email} onChange={onchangeEmail}></input>
-                <input type="password" placeholder="senha" value={password} onChange={onchangePassword}></input>
+                <div>
+                    <label>Email</label>
+                    <input type="text" placeholder="email@email.com" value={email} onChange={onchangeEmail}></input>
+                </div>
+                <div>
+                    <label>Senha</label>
+                    <input type="password" placeholder="Mínimo 6 caracteres" value={password} onChange={onchangePassword}></input>
+                </div>
+                
+
+                
                 <p>{erro}</p>
 
                 <button onClick={onClickLogin}>Entrar</button>

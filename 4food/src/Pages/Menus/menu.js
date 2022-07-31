@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, } from "react-router-dom";
+
 import styled from "styled-components";
 import GlobalContext from "../../global/GlobalContext";
 
@@ -9,7 +10,6 @@ const Img = styled.img`
   height: 7.5rem;
   margin: 0 0 0.75rem;
   object-fit: contain;
-  
 `;
 
 const Container = styled.div`
@@ -26,8 +26,8 @@ const Container = styled.div`
 
 const P = styled.div`
 
- display:flex;
- justify-content:center;
+  display:flex;
+  justify-content:space-between;
   width: 8.75rem;
   height: 1.125rem;
   margin: 0.50rem 1rem 0 0.5rem;
@@ -39,6 +39,17 @@ const P = styled.div`
   line-height: normal;
   letter-spacing: -0.39px;
   color: #B8B8B8;
+`
+const Time = styled.div`
+  display: flex;
+`
+
+const Frete = styled.div`
+  display: flex;
+  justify-content: flex-end;
+=======
+  
+`;
 `
 
 
@@ -67,6 +78,7 @@ function Restaurante() {
   const { restaurantes } = states;
   const { setRestaurantes } = setters;
   const [buscar, setBuscar] = useState("")
+
 
   useEffect(() => {
     mostrarRestaurantes();
@@ -116,8 +128,8 @@ function Restaurante() {
         <Restaurantes>{restaurante.name}</Restaurantes>
 
        <P>
-        <div>{restaurante.deliveryTime}Min </div> 
-        <div>Frete R${restaurante.shipping},00</div>
+        <Time>{restaurante.deliveryTime}Min </Time> 
+        <Frete>Frete R${restaurante.shipping},00</Frete>
         </P>  
        
         
@@ -126,9 +138,7 @@ function Restaurante() {
       
     );
   });
-
   return <div>
-
      <input type="search" value={buscar} placeholder="buscar" onChange={busca}></input>
     {listRestaurants}
     </div>;

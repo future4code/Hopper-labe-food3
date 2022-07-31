@@ -18,6 +18,9 @@ const Div = styled.div`
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
+  border-radius: 8px;
+  border: solid 1px #b8b8b8;
+
 `
 const PopPup = styled.div`
   height: 100vh;
@@ -89,6 +92,10 @@ const Restaurantes = styled.h2`
   text-align:center;
 `
 
+const Adress = styled.div`
+  color: #B8B8B8;
+`
+
 function Menu() {
   const token = localStorage.getItem("token-fourFoodA");
   const [popUp, setPopUp] = useState(false)
@@ -117,7 +124,6 @@ function Menu() {
   const incrementClick = () => {
     setContador(contador + 1);
   }
-
   const decrementClick = () => {
     if (contador <= 1) {
       setContador(contador)
@@ -125,7 +131,6 @@ function Menu() {
       setContador(contador - 1);
     }
   }
-
   const abrirPopPup = (detalhe) => {
     setProduto(detalhe)
     setPopUp(true)
@@ -232,7 +237,6 @@ function Menu() {
   //        {filtro.address}
   //     </div>
   //   )
-
   //  })
 
   // const restaurantesFiltrados = detalhes.filter((filtro)=>{
@@ -241,7 +245,9 @@ function Menu() {
 
   return (
     <ContainerRestaurant>
+      
       <div>
+        
         <Link to={`/cart/${id}`}>
           
            <button>carrinho</button>
@@ -249,12 +255,12 @@ function Menu() {
        
         
       </div>
-      <div>
+      <Adress>
         <p>Frete R$ {frete},00</p>
         {restaurantes}
+        </Adress>
         {ListDetalhes}
-       
-      </div>
+
       {popUp &&
       <PopPup>
         <div>
