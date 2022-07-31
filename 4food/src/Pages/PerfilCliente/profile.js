@@ -5,7 +5,7 @@ function Profile() {
   const token = localStorage.getItem("token-fourFoodA");
   const [perfil, setPerfil] = useState({});
   const [historicoPedidos, sethistoricoPedidos] = useState({});
-  const [pedidoEmAndamento, setPedidoEmAndamento] = useState();
+ 
 
   useEffect(() => {
     mostrarPerfil();
@@ -19,26 +19,11 @@ function Profile() {
       )
       .then((response) => {
         setPerfil(response.data.user);
+        sethistoricoPedidos(response.data.orders.restaurantName)
       })
       .catch((err) => console.log(err));
 
-    axios
-      .get(
-        "https://us-central1-missao-newton.cloudfunctions.net/fourFoodA/active-order",
-        {
-          headers: {
-            "Content-Type": "application/json",
-            auth: `${token}`,
-          },
-        }
-      )
-      .then((response) => {
-        setPedidoEmAndamento(response.data.order);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
+    
     axios
       .get(
         `https://us-central1-missao-newton.cloudfunctions.net/fourFoodA/orders/history`,
@@ -50,31 +35,7 @@ function Profile() {
       .catch((err) => console.log(err));
   };
 
-  const verificarPedidoEmAndamento = () => {
-    if (pedidoEmAndamento) {
-      return (
-        <div>
-          <p>
-            Um pedido de {pedidoEmAndamento.restaurantName} no valor de{" "}
-            {pedidoEmAndamento.totalPrice} está a caminho
-          </p>
-          <p>
-            Chega em{" "}
-            {formatarData(
-              pedidoEmAndamento.createdAt,
-              pedidoEmAndamento.expiresAt
-            )}{" "}
-            minuto
-          </p>
-        </div>
-      );
-    }
-  };
-
-  const formatarData = (timePedido, timeEntrega) => {
-    return (timeEntrega - timePedido) / 1000 / 60 / 60;
-  };
-
+ 
   return (
     <div>
       <header>
@@ -108,7 +69,8 @@ function Profile() {
       </section>
       <section>
         <h2>Histórico de pedidos</h2>
-        {verificarPedidoEmAndamento()}
+        <p>{historicoPedidos.orders}</p>
+        
         <p>Você não realizou nenhum pedido</p>
       </section>
     </div>
