@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Nav from "../../components/Nav";
-import { ProfileContainer } from "./styles";
+import { ProfileContainer, PerfilHeader, Div, Informacao, Img, Section, Historico, Editor, Endereço, Endereço1 } from "./styles";
+import Editar from "../img/edit.png"
+
 
 function Profile() {
   const token = localStorage.getItem("token-fourFoodA");
@@ -44,35 +46,38 @@ function Profile() {
 
   return (
     <ProfileContainer>
-      <header>
+      <PerfilHeader>
         <h1>Meu perfil</h1>
-      </header>
+      </PerfilHeader>
       <section>
-        <div>
-          <h2>{perfil.name}</h2>
+        <Informacao>
+          <Editor>{perfil.name} <Img src={Editar}/></Editor> 
           <p>{perfil.email}</p>
           <p>{perfil.cpf}</p>
-        </div>
-        <div>
-          <button onClick={() => {}}>Editar</button>
-        </div>
+          
+        </Informacao>
+        
+        
+       
       </section>
-      <section>
+      <Section>
         <div>
-          <h2>Endereço cadastrado</h2>
-          <p>{perfil.address}</p>
+          <Endereço>Endereço cadastrado <Img src={Editar}/></Endereço>
+          <Endereço1>{perfil.address}</Endereço1>
+          
         </div>
 
-        <div>
-          <button>Editar</button>
-        </div>
-      </section>
-      <section>
+        
+          
+        
+      </Section>
+      <Historico >
         <h2>Histórico de pedidos</h2>
+        <Div></Div>
         <p>{mostrarPedido(historicoPedidos[0])}</p>
 
         <p>{historicoPedidos ? "" : "Você não realizou nenhum pedido"}</p>
-      </section>
+      </Historico>
       <Nav />
     </ProfileContainer>
   );

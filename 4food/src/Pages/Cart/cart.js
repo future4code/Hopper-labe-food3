@@ -8,13 +8,11 @@ import Nav from "../../components/Nav";
 
 const CartContainer = styled.div`
   margin-bottom: 8vh;
-`;
-
-const Img = styled.img`
   width: 6rem;
   height: 7rem;
   margin: 0 1rem 0 0;
   object-fit: contain;
+  
 `;
 
 const Rectangle = styled.div`
@@ -55,28 +53,39 @@ const NomeItem = styled.span`
   color: #e8222e;
 `;
 
-const Quantidade = styled.div`
-  width: 2.063rem;
+const Container = styled.div`
+  width: 20.5rem;
+  height: 7rem;
+  border-radius: 8px;
+  border: solid 1px var(--greyish);
+
+  .quantidade{
+    width: 2.063rem;
   height: 2.063rem;
-  margin: 0 0 0.688rem 18rem;
+  margin: 0 0 0.688rem 1rem;
   padding: 0.438rem 0.75rem;
   border-radius: 8px;
   border: solid 1px #e8222e;
-`;
+  }
 
-const Remover = styled.button`
+  img{
+  width: 8rem;
+  height: 7rem;
+  margin: 0 1rem 0 0;
+  object-fit: contain;
+  }
+ .remover{
   width: 5.625rem;
   height: 1.938rem;
   margin: 0.438rem 0 0 0.5rem;
   padding: 0.5rem 1.438rem 0.563rem 1.5rem;
   border-radius: 8px;
   border: solid 1px #e02020;
-`;
-
-const Descricao = styled.span`
+ }
+ p{
   width: 12.5rem;
   height: 1.875rem;
-  margin: 0.5rem 8rem 0.25rem;
+  margin: 0.5rem 1rem 0.25rem;
   font-family: Roboto;
   font-size: 0.75rem;
   font-weight: normal;
@@ -85,7 +94,37 @@ const Descricao = styled.span`
   line-height: normal;
   letter-spacing: -0.29px;
   color: #b8b8b8;
-`;
+ }
+  
+ .subTotal{
+  width: 10.25rem;
+  height: 1.313rem;
+  margin: 0.813rem 1rem 1.5rem 0;
+  font-family: Roboto;
+  font-size: 1.125rem;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: -0.43px;
+  text-align: right;
+  color: #e02020;
+ }
+ h3{
+  width: 7.375rem;
+  height: 1.188rem;
+  margin: 0.25rem 0.5rem 0.938rem 1rem;
+  font-family: Roboto;
+  font-size: 1rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: -0.39px;
+  color: #000000;
+ }
+
+`
 
 const Frete = styled.p`
   width: 6.5rem;
@@ -230,23 +269,24 @@ function Cart() {
   const listarProdutos = carrinho.map((produto) => {
     if (produto.quantidade > 0) {
       return (
-        <div>
+        <Container>
           <div key={produto.id}>
-            <div>
-              <Img src={produto.photoUrl}></Img>
-              <NomeItem>{produto.name}</NomeItem>
-              <Descricao>{produto.description}</Descricao>
-              <Quantidade>{produto.quantidade}</Quantidade>
-              <Remover onClick={() => removerProduto(produto.id)}>
+            
+              <img src={produto.photoUrl}></img>
+              <h2>{produto.name}</h2>
+              <p>{produto.description}</p>
+              <h3>R${produto.price},00</h3>
+              <span className="quantidade">{produto.quantidade}</span>
+              <div className="remover" onClick={() => removerProduto(produto.id)}>
                 Remover
-              </Remover>
+              </div>
             </div>
-          </div>
+          
 
           <div>
-            <p>SubTotal: R${produto.price * produto.quantidade}</p>
+            <p className="subTotal">SubTotal: R${produto.price * produto.quantidade}</p>
           </div>
-        </div>
+        </Container>
       );
     }
   });
@@ -293,6 +333,7 @@ function Cart() {
       </Confirmar>
 
       {verificarPedidoEmAndamento}
+      
       <Nav />
     </CartContainer>
   );

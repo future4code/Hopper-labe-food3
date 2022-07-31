@@ -3,54 +3,96 @@ import React, { useEffect, useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import GlobalContext from "../../global/GlobalContext";
+import Nav from "../../components/Nav";
+import Lupa from "../img/search.png"
+
+
+const Header = styled.header`
+  width: 23.5rem;
+  height: 4rem;
+  margin: 0 0 0.5rem;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0.5px 0 0 rgba(0, 0, 0, 0.25);
+  background-color: #fff;
+
+  span{
+  font-family: Roboto;
+  font-size: 1.5rem;
+  letter-spacing: -0.39px;
+  color: #000000;
+  font-weight:bold;
+  display:flex;
+  justify-content:center;
+    
+  }
+`
 
 const Img = styled.img`
-  width: 20.5rem;
+  width: 21.5rem;
   height: 7.5rem;
   margin: 0 0 0.75rem;
   object-fit: contain;
-`;
+`
 
 const Container = styled.div`
-  width: 22.5rem;
-  height: 15.25rem;
+  width: 21.5rem;
+  height: 13.25rem;
   margin: 3.125rem 0 0;
   padding: 0.5rem 1rem 0;
   border-radius: 8px;
   border: solid 1px #b8b8b8;
-`;
+  margin-left:15px;
+  
+  div{
+    display:flex;
+    justify-content:space-between;
+       
+  }
+
+  h2{
+   width: 18.5rem;
+   height: 1.10rem;
+   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+   font-size: 1,5rem;
+   font-weight: normal;
+   font-stretch: normal;
+   font-style: normal;
+   line-height: normal;
+   color: #e8222e;
+   text-align: center;
+  
+  }
+`
 
 const P = styled.div`
   display: flex;
   justify-content: center;
-  width: 8.75rem;
-  height: 1.125rem;
-  margin: 0.5rem 1rem 0 0.5rem;
+  margin: 1.2rem 1rem 0 0.5rem;
   font-family: Roboto;
   font-size: 1rem;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
   letter-spacing: -0.39px;
   color: #b8b8b8;
-`;
+`
 
-const Restaurantes = styled.h2`
-  width: 18.5rem;
-  height: 1.125rem;
-  margin: 0.75rem 1rem 0.25rem;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  font-size: 1rem;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: -0.39px;
-  color: #e8222e;
-  text-align: center;
-`;
+
+const Busca = styled.input`
+  width: 17.5rem;
+  height: 3.5rem;
+  padding: 1rem 0.503rem 1rem 1.063rem;
+  border-radius: 2px;
+  border: solid 1px #b8b8b8;
+  margin-left:25px;
+  
+`
+const LupaImg = styled.img`
+width:35px;
+margin-top:15px;
+margin-left:10px;
+`
+
+
 
 function Restaurante() {
   const token = localStorage.getItem("token-fourFoodA");
@@ -89,24 +131,27 @@ function Restaurante() {
         <Link to={`/restaurantes/1`}>
           <Img src={restaurante.logoUrl}></Img>{" "}
         </Link>
-        <Restaurantes>{restaurante.name}</Restaurantes>
+        <h2>{restaurante.name}</h2>
 
         <P>
           <div>{restaurante.deliveryTime}Min </div>
           <div>Frete R${restaurante.shipping},00</div>
         </P>
+        <Nav />
       </Container>
     );
   });
 
   return (
+    
     <div>
-      <input
-        type="search"
-        value={buscar}
-        placeholder="buscar"
-        onChange={busca}
-      ></input>
+      <Header>
+        <span>4Food</span>
+      </Header>
+      <LupaImg src={Lupa}></LupaImg>
+       <Busca type="search" value={buscar} placeholder="Restaurante" onChange={busca} ></Busca>
+       
+            
       {listRestaurants}
     </div>
   );

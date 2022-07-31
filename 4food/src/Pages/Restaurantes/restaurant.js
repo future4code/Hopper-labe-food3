@@ -6,14 +6,27 @@ import GlobalContext from "../../global/GlobalContext";
 import { useContext } from "react";
 import Nav from "../../components/Nav";
 
+
 const ContainerRestaurant = styled.div`
   /* width: 22.5rem; */
   /* height: 12.25rem; */
   margin: 3.125rem 0 0;
   padding: 0.5rem 1rem 0;
+
+  p{
+    margin-top:10px;
+  }
+  h3{
+    margin-top:10px;
+    margin-left:10px;
+  }
 `;
 const Img = styled.img`
-  width: 250px;
+  width: 21.5rem;
+  height: 7.5rem;
+  margin: 1rem 0.75rem;
+  object-fit: contain;
+
 `;
 const ProdutoContainer = styled.div`
   display: flex;
@@ -22,6 +35,7 @@ const ProdutoContainer = styled.div`
   border-radius: 8px;
   border: solid 1px #b8b8b8;
   margin-bottom: 10px;
+    
 `;
 const PopPup = styled.div`
   height: 100vh;
@@ -49,6 +63,10 @@ const PopPup = styled.div`
     button.add-carrinho {
       padding: 10px;
       margin: 10px;
+      width: 11.438rem;
+      background-color:#e8222e;
+      border-radius:5px;
+      
     }
     span {
       margin: 10px;
@@ -76,14 +94,22 @@ const PopPup = styled.div`
       color: #ccc;
     }
   }
-`;
-const Restaurantes = styled.h2`
-  width: 18.5rem;
-  height: 1.125rem;
-  margin: 0.75rem 1rem 0.25rem;
+  `;
+  const Button = styled.button`
+  background-color:#e8222e;
+  width: 21.4rem;
+  height: 2.625rem;
+  padding: 0.75rem 1rem;
+  border-radius: 2px;
+  `
+const Restaurantes = styled.header`
+
+  width: 23.5rem;
+  height: 4rem;
+  margin: 0 0 0.5rem;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  font-size: 1rem;
+  font-size: 2rem;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -91,10 +117,14 @@ const Restaurantes = styled.h2`
   letter-spacing: -0.39px;
   color: #e8222e;
   text-align: center;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0.5px 0 0 rgba(0, 0, 0, 0.25);
 `;
 
 const Adress = styled.div`
   color: #b8b8b8;
+  margin-bottom:10px;
 `;
 
 const ContainerProdutos = styled.div`
@@ -147,6 +177,7 @@ function Menu() {
         setDetalhes(response.data.restaurant.products);
         // setRestaurantes(response.data.restaurant.address);
         setFrete(response.data.restaurant.shipping);
+        setRestaurantes(response.data.restaurant.name);
       });
   };
 
@@ -207,13 +238,14 @@ function Menu() {
   const ListDetalhes = detalhes.map((detalhe, restaurant) => {
     return (
       <ProdutoContainer key={detalhe.id}>
-        {detalhe.name}
+        <h3>{detalhe.name}</h3>
         {restaurant.address}
         <Img src={detalhe.photoUrl}></Img>
-        R${detalhe.price},00
+        
         {detalhe.description}
-        {detalhe.category}
-        <button onClick={() => abrirPopPup(detalhe)}>comprar</button>
+        <p><b>R${detalhe.price},00</b></p>
+        
+        <Button onClick={() => abrirPopPup(detalhe)}>comprar</Button>
         {/* <button onClick={() => comprarProduto(detalhe)}>comprar</button> */}
       </ProdutoContainer>
     );
@@ -234,9 +266,11 @@ function Menu() {
   return (
     <ContainerRestaurant>
       <Link to={`/cart/${id}`}>
-        <button>carrinho</button>
+        
       </Link>
+      <Restaurantes>{restaurantes}</Restaurantes>
       <Adress>
+        
         <p>Frete R$ {frete},00</p>
       </Adress>
       <ContainerProdutos>{ListDetalhes}</ContainerProdutos>
