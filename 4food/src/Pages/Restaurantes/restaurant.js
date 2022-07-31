@@ -10,7 +10,6 @@ const ContainerRestaurant = styled.div`
   height: 12.25rem;
   margin: 3.125rem 0 0;
   padding: 0.5rem 1rem 0;
-  
 `
 const Img = styled.img`
   width: 250px;
@@ -20,8 +19,8 @@ const Div = styled.div`
   flex-wrap: wrap;
   flex-direction: column;
   border-radius: 8px;
-    border: solid 1px #b8b8b8;
-    
+  border: solid 1px #b8b8b8;
+
 `
 const PopPup = styled.div`
   height: 100vh;
@@ -125,7 +124,6 @@ function Menu() {
   const incrementClick = () => {
     setContador(contador + 1);
   }
-
   const decrementClick = () => {
     if (contador <= 1) {
       setContador(contador)
@@ -133,7 +131,6 @@ function Menu() {
       setContador(contador - 1);
     }
   }
-
   const abrirPopPup = (detalhe) => {
     setProduto(detalhe)
     setPopUp(true)
@@ -240,7 +237,6 @@ function Menu() {
   //        {filtro.address}
   //     </div>
   //   )
-
   //  })
 
   // const restaurantesFiltrados = detalhes.filter((filtro)=>{
@@ -264,8 +260,7 @@ function Menu() {
         {restaurantes}
         </Adress>
         {ListDetalhes}
-       
-      
+
       {popUp &&
       <PopPup>
         <div>

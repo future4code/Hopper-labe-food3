@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useContext, useState } from "react";
 import { Link, } from "react-router-dom";
+
 import styled from "styled-components";
 import GlobalContext from "../../global/GlobalContext";
 
@@ -46,6 +47,9 @@ const Time = styled.div`
 const Frete = styled.div`
   display: flex;
   justify-content: flex-end;
+=======
+  
+`;
 `
 
 
@@ -74,7 +78,7 @@ function Restaurante() {
   const { restaurantes } = states;
   const { setRestaurantes } = setters;
   const [buscar, setBuscar] = useState("")
-  
+
 
   useEffect(() => {
     mostrarRestaurantes();
@@ -134,9 +138,7 @@ function Restaurante() {
       
     );
   });
-
   return <div>
-
      <input type="search" value={buscar} placeholder="buscar" onChange={busca}></input>
     {listRestaurants}
     </div>;

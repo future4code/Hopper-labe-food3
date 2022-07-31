@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import GlobalContext from "./GlobalContext";
 
 const GlobalState = (props) => {
-
     const [nome, setNome] = useState("");
     const [email, setEmail] = useState("");
     const [cpf, setCpf] = useState("");
@@ -73,3 +72,7 @@ const GlobalState = (props) => {
 }
 
 export default GlobalState;
+};
+
+export default GlobalState;
+
