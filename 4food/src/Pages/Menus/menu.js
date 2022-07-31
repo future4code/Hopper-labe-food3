@@ -1,29 +1,79 @@
 import axios from "axios";
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import GlobalContext from "../../global/GlobalContext";
 
 const Img = styled.img`
-  width: 200px;
+  width: 20.5rem;
+  height: 7.5rem;
+  margin: 0 0 0.75rem;
+  object-fit: contain;
+  
 `;
 
 const Container = styled.div`
-  border: 1px solid black;
-  display: flex;
+
+  width: 22.5rem;
+  height: 15.25rem;
+  margin: 3.125rem 0 0;
+  padding: 0.5rem 1rem 0;
+  border-radius: 8px;
+  border: solid 1px #B8B8B8;
+
+ 
 `;
 
-function Menu() {
+const P = styled.div`
+
+ display:flex;
+ justify-content:center;
+  width: 8.75rem;
+  height: 1.125rem;
+  margin: 0.50rem 1rem 0 0.5rem;
+  font-family: Roboto;
+  font-size: 1rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: -0.39px;
+  color: #B8B8B8;
+`
+
+
+const Restaurantes = styled.h2`
+  
+  width: 18.5rem;
+  height: 1.125rem;
+  margin: 0.75rem 1rem 0.25rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 1rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: -0.39px;
+  color: #E8222E;
+  text-align:center;
+`
+
+
+
+function Restaurante() {
   const token = localStorage.getItem("token-fourFoodA");
 
   const { states, setters } = useContext(GlobalContext);
   const { restaurantes } = states;
   const { setRestaurantes } = setters;
+  const [buscar, setBuscar] = useState("")
 
   useEffect(() => {
-    mostrarMenus();
+    mostrarRestaurantes();
+  
   }, []);
-  const mostrarMenus = () => {
+  
+  const mostrarRestaurantes = () => {
     axios
       .get(
         "https://us-central1-missao-newton.cloudfunctions.net/fourFoodA/restaurants",
@@ -31,28 +81,57 @@ function Menu() {
       )
       .then((response) => {
         setRestaurantes(response.data.restaurants);
+       
+                
         console.log(response.data.restaurants);
       });
+      
   };
 
-  const listRestaurants = restaurantes.map((restaurante) => {
+  
+  const busca = (event) =>{
+    
+  setBuscar(event.target.value)
+  console.log(event.target.value)
+
+  }
+   const filtrar = restaurantes.filter((filtro)=>{
+    return(
+      <div>
+         {filtro.name}
+      </div>
+    )
+
+   })
+
+  const listRestaurants = filtrar.map((restaurante) => {
+    
     return (
+      
       <Container key={restaurante.id}>
-        <h2>{restaurante.name}</h2>
+        
         <Link to={`/restaurantes/${restaurante.id}`}>
           <Img src={restaurante.logoUrl}></Img>{" "}
         </Link>
+        <Restaurantes>{restaurante.name}</Restaurantes>
 
-        {restaurante.address}
-        {restaurante.category}
-        {restaurante.deliveryTime}
-        {restaurante.description}
-        {restaurante.shipping}
+       <P>
+        <div>{restaurante.deliveryTime}Min </div> 
+        <div>Frete R${restaurante.shipping},00</div>
+        </P>  
+       
+        
+        
       </Container>
+      
     );
   });
 
-  return <div>{listRestaurants}</div>;
+  return <div>
+
+     <input type="search" value={buscar} placeholder="buscar" onChange={busca}></input>
+    {listRestaurants}
+    </div>;
 }
 
-export default Menu;
+export default Restaurante;

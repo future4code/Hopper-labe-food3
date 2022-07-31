@@ -6,7 +6,10 @@ import GlobalContext from "../../global/GlobalContext";
 import { useContext } from "react";
 
 const ContainerRestaurant = styled.div`
-  
+  width: 22.5rem;
+  height: 12.25rem;
+  margin: 3.125rem 0 0;
+  padding: 0.5rem 1rem 0;
 `
 const Img = styled.img`
   width: 250px;
@@ -70,20 +73,35 @@ const PopPup = styled.div`
     }
   }
 `
+const Restaurantes = styled.h2`
+  
+  width: 18.5rem;
+  height: 1.125rem;
+  margin: 0.75rem 1rem 0.25rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 1rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: -0.39px;
+  color: #E8222E;
+  text-align:center;
+`
 
-function Restaurante() {
+function Menu() {
   const token = localStorage.getItem("token-fourFoodA");
   const [popUp, setPopUp] = useState(false)
   const [contador, setContador] = useState(1)
   const [produto, setProduto] = useState({})
 
-  const { states, setters } = useContext(GlobalContext);
-  const { detalhes } = states;
-  const { carrinho } = states;
-  const { setDetalhes } = setters;
-  const { setCarrinho } = setters;
 
-  const { id } = useParams();
+
+  const { states, setters } = useContext(GlobalContext);
+  const { restaurantes,detalhes,carrinho,frete } = states;
+  const { setRestaurantes,setDetalhes, setCarrinho, setFrete } = setters;
+ 
+ const { id } = useParams();
 
   let navigate = useNavigate();
   const goCart = () => {
@@ -91,7 +109,8 @@ function Restaurante() {
   };
 
   useEffect(() => {
-    mostrarDeatlhes();
+    mostrarDetalhes();
+    
   }, []);
 
 
@@ -112,7 +131,7 @@ function Restaurante() {
     setPopUp(true)
   }
 
-  const mostrarDeatlhes = () => {
+  const mostrarDetalhes = () => {
     axios
       .get(
         `https://us-central1-missao-newton.cloudfunctions.net/fourFoodA/restaurants/${id}`,
@@ -120,9 +139,18 @@ function Restaurante() {
       )
       .then((response) => {
         setDetalhes(response.data.restaurant.products);
+        setRestaurantes(response.data.restaurant.address);
+        setFrete(response.data.restaurant.shipping)
+       
+        
+        
+      
+       
         console.log(response.data.restaurant.products);
       });
   };
+
+ 
 
   const comprarProduto = (produto, contador) => {
     // const index = carrinho.findIndex((adicionarNoCarrinho) => {
@@ -180,29 +208,52 @@ function Restaurante() {
     console.log(carrinho);
   };
 
-  const ListDetalhes = detalhes.map((detalhe) => {
+ 
+  const ListDetalhes = detalhes.map((detalhe,restaurant) => {
     return (
         <Div key={detalhe.id}>
           {detalhe.name}
+          {restaurant.address}
+          
           <Img src={detalhe.photoUrl}></Img>
           R${detalhe.price},00
           {detalhe.description}
           {detalhe.category}
+          
           <button onClick={() => abrirPopPup(detalhe)}>comprar</button>
           {/* <button onClick={() => comprarProduto(detalhe)}>comprar</button> */}
         </Div>
     );
   });
 
+  // const filtrar = restaurantes.map((filtro)=>{
+  //   return(
+  //     <div>
+  //        {filtro.address}
+  //     </div>
+  //   )
+
+  //  })
+
+  // const restaurantesFiltrados = detalhes.filter((filtro)=>{
+  //   filtro.startsWith(buscar)
+  // })
+
   return (
     <ContainerRestaurant>
       <div>
         <Link to={`/cart/${id}`}>
-          <button>carrinho</button>
+          
+           <button>carrinho</button>
         </Link>
+       
+        
       </div>
       <div>
+        <p>Frete R$ {frete},00</p>
+        {restaurantes}
         {ListDetalhes}
+       
       </div>
       {popUp &&
       <PopPup>
@@ -224,4 +275,4 @@ function Restaurante() {
   );
 }
 
-export default Restaurante;
+export default Menu;

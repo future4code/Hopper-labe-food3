@@ -20,6 +20,8 @@ const GlobalState = (props) => {
   const [restaurantes, setRestaurantes] = useState([]);
   const [detalhes, setDetalhes] = useState([]);
   const [carrinho, setCarrinho] = useState([]);
+  const [frete, setFrete] = useState([])
+  const [perfil, setPerfil] = useState([]);
 
   const states = {
     nome,
@@ -37,6 +39,8 @@ const GlobalState = (props) => {
     restaurantes,
     detalhes,
     carrinho,
+    frete,
+    perfil
   };
 
   const setters = {
@@ -55,11 +59,15 @@ const GlobalState = (props) => {
     setRestaurantes,
     setDetalhes,
     setCarrinho,
+    setFrete,
+    setPerfil
   };
+
+
 
   return (
     <GlobalContext.Provider value={{ states, setters }}>
-      {console.log(detalhes)}
+      {console.log(restaurantes)}
       {props.children}
     </GlobalContext.Provider>
   );
