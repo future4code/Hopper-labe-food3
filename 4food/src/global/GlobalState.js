@@ -72,7 +72,4 @@ const GlobalState = (props) => {
 }
 
 export default GlobalState;
-};
-
-export default GlobalState;
 
