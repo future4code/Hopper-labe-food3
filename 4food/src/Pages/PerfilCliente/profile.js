@@ -1,11 +1,80 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
-function Profile(){
-    return(
+function Profile() {
+  const token = localStorage.getItem("token-fourFoodA");
+  const [perfil, setPerfil] = useState({});
+  const [historicoPedidos, sethistoricoPedidos] = useState({});
+ 
+
+  useEffect(() => {
+    mostrarPerfil();
+  }, []);
+
+  const mostrarPerfil = () => {
+    axios
+      .get(
+        `https://us-central1-missao-newton.cloudfunctions.net/fourFoodA/profile`,
+        { headers: { auth: token, "Content-Type": "application/json" } }
+      )
+      .then((response) => {
+        setPerfil(response.data.user);
+        sethistoricoPedidos(response.data.orders.restaurantName)
+      })
+      .catch((err) => console.log(err));
+
+    
+    axios
+      .get(
+        `https://us-central1-missao-newton.cloudfunctions.net/fourFoodA/orders/history`,
+        { headers: { auth: token, "Content-Type": "application/json" } }
+      )
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => console.log(err));
+  };
+
+ 
+  return (
+    <div>
+      <header>
+        <h1>Meu perfil</h1>
+      </header>
+      <section>
         <div>
-         <h2>Profile</h2>
+          <h2>{perfil.name}</h2>
+          <p>{perfil.email}</p>
+          <p>{perfil.cpf}</p>
         </div>
-    )
+        <div>
+          <button
+            onClick={() => {
+              console.log();
+            }}
+          >
+            Editar
+          </button>
+        </div>
+      </section>
+      <section>
+        <div>
+          <h2>Endereço cadastrado</h2>
+          <p>{perfil.address}</p>
+        </div>
+
+        <div>
+          <button>Editar</button>
+        </div>
+      </section>
+      <section>
+        <h2>Histórico de pedidos</h2>
+        <p>{historicoPedidos.orders}</p>
+        
+        <p>Você não realizou nenhum pedido</p>
+      </section>
+    </div>
+  );
 }
 
-export default Profile
+export default Profile;
