@@ -6,19 +6,17 @@ import axios from "axios";
 import GlobalContext from "../../global/GlobalContext";
 
 const LoginPage = styled.div`
-  margin: 0;
-  padding: 0;
-`;
+  width: 100%;
+  height: 100vh;
+`
 const Header = styled.header`
   display: flex;
-  height: 100px;
-  margin: 0;
+  height: var(--altura-header);
   justify-content: center;
   align-items: center;
   background-color: #ff1616;
-
   img {
-    display: flex;
+    object-fit: cover;
     width: 150px;
     height: 250px;
   }
@@ -27,13 +25,17 @@ const Header = styled.header`
 const LoginArea = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  margin-top: 100px;
   align-items: center;
   padding: 10px;
+  h2 {
+    margin: 10px;
+  }
 
   input {
     width: 100%;
     padding: 15px;
+    margin: 5px;
     border: 2px solid #b8b8b8;
     border-radius: 5px;
     ::placeholder {
@@ -42,23 +44,29 @@ const LoginArea = styled.div`
   }
   label {
     position: relative;
-    top: 7px;
-    left: 13px;
+    top: 14px;
+    left: 16px;
     background-color: white;
     padding: 5px;
     color: #b8b8b8;
   }
   button {
-    width: 100%;
+    width: 250px;
     background-color: #e8222e;
     border: 0;
     border-radius: 5px;
-    padding: 20px;
+    padding: 15px;
+    margin-bottom: 5px;
+    color: white;
     font-weight: bolder;
     margin-top: 20px;
     cursor: pointer;
   }
-`;
+  .erro {
+    color: red;
+    font-size: 0.8em;
+  }
+`
 
 function Login() {
   const [erro, setErro] = useState();
@@ -75,10 +83,12 @@ function Login() {
   const { setPassword } = setters;
 
   const onchangeEmail = (event) => {
+    setErro('')
     setEmail(event.target.value);
   };
 
   const onchangePassword = (event) => {
+    setErro('')
     setPassword(event.target.value);
   };
 
@@ -128,7 +138,7 @@ function Login() {
           ></input>
         </div>
 
-        <p>{erro}</p>
+        <p className="erro">{erro}</p>
 
         <button onClick={onClickLogin}>Entrar</button>
 
