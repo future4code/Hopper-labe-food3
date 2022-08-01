@@ -4,29 +4,23 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import GlobalContext from "../../global/GlobalContext";
 import Nav from "../../components/Nav";
-import Lupa from "../img/search.png"
+import Lupa from "../img/search.png";
+import Logo from "../img/logo.png";
+import Cabecalho from "../../layouts/Cabecalho";
 
 
 const Header = styled.header`
-  width: 23.5rem;
-  height: 4rem;
-  margin: 0 0 0.5rem;
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 0.5px 0 0 rgba(0, 0, 0, 0.25);
-  background-color: #fff;
-
-  span{
-  font-family: Roboto;
-  font-size: 1.5rem;
-  letter-spacing: -0.39px;
-  color: #000000;
-  font-weight:bold;
-  display:flex;
-  justify-content:center;
-    
+  display: flex;
+  height: var(--altura-header);
+  justify-content: center;
+  align-items: center;
+  background-color: #ff1616;
+  img {
+    object-fit: cover;
+    width: 150px;
+    height: 250px;
   }
-`
+`;
 
 const Img = styled.img`
   width: 21.5rem;
@@ -92,6 +86,12 @@ margin-top:15px;
 margin-left:10px;
 `
 
+const BoxLista = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+`
+
 
 
 function Restaurante() {
@@ -137,23 +137,20 @@ function Restaurante() {
           <div>{restaurante.deliveryTime}Min </div>
           <div>Frete R${restaurante.shipping},00</div>
         </P>
-        <Nav />
       </Container>
     );
   });
 
   return (
     
-    <div>
-      <Header>
-        <span>4Food</span>
-      </Header>
-      <LupaImg src={Lupa}></LupaImg>
-       <Busca type="search" value={buscar} placeholder="Restaurante" onChange={busca} ></Busca>
+    <Cabecalho>
+      {/* <LupaImg src={Lupa}></LupaImg> */}
+      
        
-            
-      {listRestaurants}
-    </div>
+      <BoxLista>
+        {listRestaurants}
+      </BoxLista>     
+    </Cabecalho>
   );
 }
 

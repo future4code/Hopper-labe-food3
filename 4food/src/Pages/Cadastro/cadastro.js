@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import InputMask from "react-input-mask";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Header, LoginArea } from "./styles";
+import { Header, LoginArea, Conteudo } from "./styles";
 import Logo from "../img/logo.png";
 import GlobalContext from "../../global/GlobalContext";
 
@@ -32,6 +32,7 @@ function Cadastro() {
 
   const { paginaEndereco } = states;
   const { setPaginaEndereco } = setters;
+  const [erro, setErro] = useState('')
 
   let navigate = useNavigate();
   const goHome = () => {
@@ -56,10 +57,13 @@ function Cadastro() {
         }
       )
       .then((response) => {
+        setErro('')
         setPaginaEndereco(true);
         localStorage.setItem("token-fourFoodA", response.data.token);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setErro(err.response.data.message)
+      });
   };
 
   const criarEndereco = () => {
@@ -88,7 +92,10 @@ function Cadastro() {
         localStorage.setItem("token", response.data.token);
         goHome();
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err)
+        setErro(err.response.data.message)
+      })
   };
 
   const renderCadastro = () => {
@@ -133,6 +140,7 @@ function Cadastro() {
               onChange={(e) => setSenha(e.target.value)}
             />
           </div>
+          <p className="erro">{erro}</p>
           <button onClick={() => criarUsuario()}>Criar</button>
         </LoginArea>
       );
@@ -194,6 +202,7 @@ function Cadastro() {
               onChange={(e) => setEstado(e.target.value)}
             />
           </div>
+          <p className="erro">{erro}</p>
           <button onClick={() => criarEndereco()}>Salvar</button>
         </LoginArea>
       );
@@ -205,7 +214,9 @@ function Cadastro() {
       <Header>
         <img src={Logo}></img>
       </Header>
-      {renderCadastro()}
+      <Conteudo>
+        {renderCadastro()}
+      </Conteudo>
     </div>
   );
 }
