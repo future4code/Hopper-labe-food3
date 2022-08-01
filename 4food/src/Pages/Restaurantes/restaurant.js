@@ -5,6 +5,7 @@ import styled from "styled-components";
 import GlobalContext from "../../global/GlobalContext";
 import { useContext } from "react";
 import Nav from "../../components/Nav";
+import Cabecalho from "../../layouts/Cabecalho";
 
 
 const ContainerRestaurant = styled.div`
@@ -19,6 +20,12 @@ const ContainerRestaurant = styled.div`
   h3{
     margin-top:10px;
     margin-left:10px;
+  }
+  .busca {
+    display: none;
+  }
+  @media (max-width: 800px) {
+    padding-top: -100px;
   }
 `;
 const Img = styled.img`
@@ -265,6 +272,7 @@ function Menu() {
 
   return (
     <ContainerRestaurant>
+      <Cabecalho>
       <Link to={`/cart/${id}`}>
         
       </Link>
@@ -303,6 +311,7 @@ function Menu() {
       )}
 
       <Nav />
+      </Cabecalho>
     </ContainerRestaurant>
   );
 }

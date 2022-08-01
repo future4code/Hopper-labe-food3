@@ -128,7 +128,7 @@ function Restaurante() {
   const listRestaurants = filtrar.map((restaurante) => {
     return (
       <Container key={restaurante.id}>
-        <Link to={`/restaurantes/1`}>
+        <Link to={`/restaurantes/${restaurante.id}`}>
           <Img src={restaurante.logoUrl}></Img>{" "}
         </Link>
         <h2>{restaurante.name}</h2>
@@ -144,9 +144,6 @@ function Restaurante() {
   return (
     
     <Cabecalho>
-      {/* <LupaImg src={Lupa}></LupaImg> */}
-      
-       
       <BoxLista>
         {listRestaurants}
       </BoxLista>     

@@ -8,6 +8,7 @@ const ContainerApp = styled.div`
     padding-top: 100px;
     @media (max-width: 800px) {
         padding-top: 130px;
+        padding-bottom: 80px;
     }
 `
 const Header = styled.div`
@@ -81,7 +82,7 @@ export default function Cabecalho({ children }) {
                 <BoxMenu>
                     <Nav />
                 </BoxMenu>
-                <BoxBusca>
+                <BoxBusca className="busca">
                     <input type="search" placeholder="Restaurante" ></input>
                     <img src={Lupa} />
                 </BoxBusca>
